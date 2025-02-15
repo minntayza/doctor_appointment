@@ -32,6 +32,7 @@ class BookingController extends Controller
                 'schedule_id' => $schedule->id,
                 'time' => $schedule->time,
                 'end_time' => $schedule->end_time,
+                'user_id' => auth()->user()->id,
             ]);
             return redirect('/bookings')->with('success', 'Booking successful.');
         } else {

@@ -13,5 +13,5 @@ class Booking extends Model
         return $this->belongsTo(User::class);
     }
     
-    protected $fillable=['username','user_mail','doc_name','doc_email','doc_skills','doc_diploma','day','date','hospital','doctor_id', 'time', 'end_time','schedule_id'];
+    protected $fillable=['username','user_mail','doc_name','doc_email','doc_skills','doc_diploma','day','date','hospital','doctor_id', 'time', 'end_time','schedule_id','user_id'];
 }
