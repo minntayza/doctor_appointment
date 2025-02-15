@@ -34,9 +34,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/manage-users', [AdminController::class, 'users']);
     Route::get('/manage-bookings', [AdminController::class, 'bookings']);
     Route::get('/manage-doctors', [AdminController::class, 'doctors']);
+    Route::get('/manage-hospitals', [AdminController::class, 'hospitals']);
     Route::get('/manage-users/edit', [AdminController::class, 'edit']);
     Route::delete('/manage-doctors/delete', [AdminController::class, 'delete']);
-    Route::delete('/logout', [AdminController::class, 'destroy']);
+    Route::delete('/logout', [AdminController::class, 'logout']);
+    Route::get('/manage-users/{user:id}/edit',[AdminController::class, 'edit']);
 });
 
 require __DIR__.'/auth.php';

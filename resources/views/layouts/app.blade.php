@@ -20,9 +20,9 @@
             @if(auth()->user()->is_admin){
 
             }
-            @else{
+            @else
                 @include('layouts.navigation')
-            }
+            
             @endif
             <!-- Page Heading -->
             @isset($header)
@@ -38,7 +38,6 @@
                 {{ $slot }}
             </main>
         </div>
-        <x-footer/>
         <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
     </body>
 </html>

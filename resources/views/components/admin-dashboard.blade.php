@@ -1,4 +1,10 @@
 <div class="p-6 sm:ml-64 bg-gray-100 min-h-screen">
+    @if (session('success'))
+    <div class="bg-green-500 text-white p-4 rounded-lg mb-6 shadow-md flex items-center justify-between">
+        <span>{{ session('success') }}</span>
+        <button onclick="this.parentElement.style.display='none'" class="text-white font-bold">&times;</button>
+    </div>
+    @endif
     <!-- Main Content -->
     <div class="p-6">
         <h1 class="text-4xl font-bold text-gray-900">Welcome, Admin</h1>

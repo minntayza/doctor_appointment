@@ -45,6 +45,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public static function scopeFilter($query, $filter = []) {
+        if($search = $filter['search'] ?? null){
+            $query = $query->where('name', 'like', '%'.$search.'%');
+        }
+        return $query;
+
+    }
+
     public function doctor(){
         return $this->hasOne(Doctor::class);
     }

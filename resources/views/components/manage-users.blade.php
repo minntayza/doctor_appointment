@@ -3,15 +3,22 @@
 
     <!-- Search Bar -->
     <div class="flex justify-between items-center mb-6">
-        <input type="text" id="search" placeholder="Search users..." class="p-3 w-1/3 border rounded-lg shadow-sm focus:ring focus:ring-blue-300">
-        <a href="" class="px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-blue-700 shadow-md">+ Add User</a>
+        <form method="GET" action="/manage-users" class="relative w-1/3">
+            <input type="text" name="search" type="search" value="{{request('search')}}" id="search" placeholder="Search users..."
+                   class="p-3 w-full  rounded-lg shadow-sm focus:ring focus:ring-blue-300">
+            <button type="submit"
+                    class="absolute right-0 top-0 p-3 rounded-r-lg bg-blue-950 text-white hover:bg-blue-900 focus:ring focus:ring-blue-300">
+                Search
+            </button>
+        </form>
+        {{-- <a href="" class="px-4 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-700 shadow-md">+ Add User</a> --}}
     </div>
 
     <!-- Users Table -->
     <div class="bg-white rounded-lg shadow-lg overflow-hidden">
         <table class="min-w-full border-collapse w-full">
             <thead>
-                <tr class="bg-sky-600 text-white">
+                <tr class="bg-sky-950 text-white">
                     <th class="px-6 py-3 text-left text-sm font-semibold uppercase">#</th>
                     <th class="px-6 py-3 text-left text-sm font-semibold uppercase">Name</th>
                     <th class="px-6 py-3 text-left text-sm font-semibold uppercase">Email</th>
@@ -42,11 +49,9 @@
                         </span>
                     </td>
                     <td class="px-6 py-4 flex justify-center gap-4">
-                        <form action="/manage-users/edit">
-                            <button type="submit" class="px-5 py-2 bg-yellow-500 text-black rounded-lg hover:bg-yellow-600 shadow-md">
+                            {{-- <a href="/manage-users/{{$user->id}}/edit" class="px-5 py-2 bg-yellow-500 text-black rounded-lg hover:bg-yellow-600 shadow-md">
                                 Edit
-                            </button>
-                        </form>
+                            </a> --}}
                         <form action="/manage-users/delete" method="POST" onsubmit="return confirm('Are you sure?');">
                             @csrf
                             @method('delete')
