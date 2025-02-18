@@ -35,10 +35,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/manage-bookings', [AdminController::class, 'bookings']);
     Route::get('/manage-doctors', [AdminController::class, 'doctors']);
     Route::get('/manage-hospitals', [AdminController::class, 'hospitals']);
-    Route::get('/manage-users/edit', [AdminController::class, 'edit']);
-    Route::delete('/manage-doctors/delete', [AdminController::class, 'delete']);
+    Route::get('/manage-users/edit', [AdminController::class, 'delete']);
+    Route::post('/manage-users/toggle-role/{user}', [AdminController::class, 'toggleRole'])->name('users.toggleRole');
+    Route::delete('/manage-bookings/{bookings:id}/delete', [AdminController::class, 'delete']);
     Route::delete('/logout', [AdminController::class, 'logout']);
-    Route::get('/manage-users/{user:id}/edit',[AdminController::class, 'edit']);
+    Route::put('/manage-bookings/{booking:id}/approve',[AdminController::class,'approve']);
+    Route::put('/manage-bookings/{booking:id}/cancel',[AdminController::class,'cancel']);
+    Route::get('/add-doctor',[AdminController::class,'addDoctor']);
 });
 
 require __DIR__.'/auth.php';

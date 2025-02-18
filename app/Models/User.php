@@ -51,7 +51,6 @@ class User extends Authenticatable
             $query = $query->where('name', 'like', '%'.$search.'%');
         }
         return $query;
-
     }
 
     public function doctor(){
