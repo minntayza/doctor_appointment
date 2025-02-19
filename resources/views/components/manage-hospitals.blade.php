@@ -4,15 +4,15 @@
 
         <!-- Search Bar -->
         <div class="flex justify-between items-center mb-6">
-            <form method="GET" action="/manage-users" class="relative w-1/3">
-                <input type="text" name="search" type="search" value="{{request('search')}}" id="search" placeholder="Search users..."
+            <form method="GET" action="/manage-hospitals" class="relative w-1/3">
+                <input type="text" name="search" type="search" value="{{request('search')}}" id="search" placeholder="Search hospitals..."
                        class="p-3 w-full  rounded-lg shadow-sm focus:ring focus:ring-blue-300">
                 <button type="submit"
                         class="absolute right-0 top-0 p-3 rounded-r-lg bg-blue-950 text-white hover:bg-blue-900 focus:ring focus:ring-blue-300">
                     Search
                 </button>
             </form>
-            <a href="" class="px-4 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-700 shadow-md">+ Add Hospital</a>
+            <a href="/add-hospital" class="px-4 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-700 shadow-md">+ Add Hospital</a>
         </div>
 
         <!-- Hospitals Table -->
@@ -42,12 +42,15 @@
                         <td class="p-4">{{ $hospital->email }}</td>
                         <td>
                             <ul  style="list-style-type:disc">
-                                <li>Aung Kaung Mon</li>
-                                <li>Htet Myet Zaw</li>
+                                @foreach ($hospital->doctors as $doctor )
+                                    <li>
+                                    {{$doctor->name}}
+                                    </li>
+                                @endforeach
                             </ul>
                         </td>
                         <td class="p-4 flex space-x-2">
-                            <a
+                            <a href="/manage-hospitals/{{$hospital->id}}/edit"
                                class="px-3 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600">
                                 Edit
                             </a>
@@ -67,8 +70,9 @@
         </div>
 
         <!-- Pagination -->
-        {{-- <div class="mt-6">
+        <div class="mt-6">
             {{ $hospitals->links() }}
-        </div> --}}
+        </div>
     </div>
 </div>
+

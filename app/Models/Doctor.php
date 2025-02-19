@@ -9,7 +9,7 @@ class Doctor extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'address', 'email', 'phone_num'];
+    protected $fillable = ['title', 'address', 'email', 'phone_num','name', 'diploma','specialization','user_id'];
 
     public static function scopeFilter($query, $filter = [])
     {
@@ -35,7 +35,7 @@ class Doctor extends Model
 
     public function hospitalDoctors()
     {
-        return $this->hasMany(HospitalDoctor::class); // Corrected capitalization
+        return $this->hasMany(hospital_doctor::class); // Corrected capitalization
     }
 
     public function schedules()

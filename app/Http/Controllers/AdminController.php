@@ -32,12 +32,12 @@ class AdminController extends Controller
         return view('admin.bookings',['bookings' => $bookings]);
     }
     public function doctors(){
-        $filter = request(key: ['search']);
-        return view('admin.manage_doctors',['doctors'=>Doctor::filter($filter)->latest()->cursorPaginate(5)->withQueryString()]);
+        $filter = request()->only(['search', 'hospital', 'specialty']); 
+        return view('admin.manage_doctors', ['doctors' => Doctor::filter($filter)->latest()->paginate(5)->withQueryString()]);
     }
     public function hospitals(){
-        $hospitals = Hospital::all();
-        return view('admin.manage_hospitals',['hospitals'=>$hospitals]);
+        $filter = request(key: ['search']);
+        return view('admin.manage_hospitals',['hospitals'=>Hospital::filter($filter)->paginate(5)->withQueryString( )]);
     }
     public function toggleRole(Request $request, User $user)
     {
@@ -72,5 +72,37 @@ class AdminController extends Controller
         $booking = Booking::findOrFail($id);
         $booking->delete();
         return back()->with('success', 'Booking status updated successfully!');
+    }
+    public function deleteDoctor($id){
+        $doctor = Doctor::findOrFail($id);
+        $doctor->delete();
+        return back()->with('success', 'Doctor is deleted successfully!');
+    }
+    public function editDoctor($id){
+        return view('admin.edit_doctor',['doctor'=>Doctor::findOrFail($id), 'hospitals'=>Hospital::all()]);
+    }
+    public function updateDoctor(Request $request, Doctor $doctor)
+    {
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255|unique:doctors,email,' . $doctor->id,
+        'specialization' => 'required|string|max:255',
+        'phone_num' => 'required|string|max:20',
+        'diploma' => 'nullable|string|max:255',
+        'hospital_id' => 'required|array',
+        'hospital_id.*' => 'exists:hospitals,id'
+    ]);
+
+    $doctor->update([
+        'name' => $request->input('name'),
+        'email' => $request->input('email'),
+        'specialization' => $request->input('specialization'),
+        'phone_num' => $request->input('phone_num'),
+        'diploma' => $request->input('diploma'),
+    ]);
+
+    $doctor->hospitals()->syncWithPivotValues($request->input('hospital_id'), ['schedule_id' => 1]);
+
+    return redirect('/manage-doctors')->with('success', 'Doctor updated successfully!');
     }
 }

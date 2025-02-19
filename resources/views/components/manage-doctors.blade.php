@@ -53,7 +53,7 @@
                             @endif
                         </td> --}}
                         <td class="p-4 flex space-x-2">
-                            <a
+                            <a href="/manage-doctors/{{$doctor->id}}/edit"
                                class="px-5 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600">
                                 Edit
                             </a>
@@ -65,7 +65,7 @@
                                     {{ $doctor->is_active ? 'Deactivate' : 'Activate' }}
                                 </button>
                             </form> --}}
-                            <form method="POST" action="/manage-bookings">
+                            <form method="POST" action="/manage-doctors/{{$doctor->id}}/delete">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="px-3 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600">

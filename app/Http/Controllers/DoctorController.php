@@ -7,9 +7,10 @@ use App\Models\Doctor;
 use App\Models\Hospital;
 use App\Models\Schedule;
 use App\Models\Time;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 
 class DoctorController extends Controller
 {
@@ -26,84 +27,46 @@ class DoctorController extends Controller
             'doctors' => $doctor->all()
         ]);
     }
-    
-//     public function doctor(){
 
-//         return view('doctor_dashboard',[
-//             'doctor' => auth()->user()->doctor
-//         ]);
-//     }
-//     public function profile(){
-//         return view('doctor_profile');
-//     }
-//     public function viewAppointment(){
-//         return view('view_appointment');
-//     }
-//     public function accept(Booking $booking){
-//         $booking->is_booked = true;
-//         $booking->save();
-//         return redirect('/view-appointments');
-//     }
-//     public function reject(Booking $booking){
-//         $booking->delete();
-//         return redirect('/view-appointments');
-//     }
-//     public function viewHospital(){
-//         return view('edit_hospital');
-//     }
-//     public function editHospital(Request $request){
-//         $request->validate([
-//             'name' => 'required|string|exists:hospitals,name',
-//         ]);
+    public function create()
+    {
+        $hospitals = Hospital::all(); // Get all hospitals
+        $doctors = Doctor::all();
+        return view('admin.add_doctor', compact('hospitals', 'doctors'  ));
+    }
 
-//         $hospital = Hospital::where('name', $request->name)->first();
-//         if ($hospital) {
-//             auth()->user()->doctor->hospital_id = $hospital->id;
-//             auth()->user()->doctor->save();
-//             return redirect('/doctor-dashboard')->with('success', 'Hospital changed successfully.');
-//         }
+    // Store Doctor
+    public function store(Request $request)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users',
+        'phone' => 'required|string|max:20',
+        'specialization' => 'required|string',
+        'hospital_id' => 'required|array',
+        'hospital_id.*' => 'exists:hospitals,id',
+        'diploma' => 'nullable|string',
+    ]);
 
-//         return redirect()->back()->with('error', 'Hospital not found.');
-//     }
-//     public function editDays(){
-//         return view('edit_sitting_days');
-//     }
-//     public function editSittingDays(Request $request)
-//     {
-//         $request->validate([
-//             'date' => 'required|date',
-//             'time' => 'required',
-//         ]);
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => bcrypt('password123'), // You should send an email to doctor to set password
+        'is_doctor' => 1,
+    ]);
 
-//         $dayName = Carbon::parse($request->date)->format('D'); // Mon, Tue, etc.
-//         $time = Time::create([
-//             'days' => $dayName,
-//             'date' => $request->date,
-//             'time' => $request->time,
-//         ]);
-//         $time->doctors()->attach(auth()->user()->doctor->id);
-//         return redirect('/sitting-days')->with('success', 'Sitting day saved successfully!');
-//     }
-//     public function sittingDays(){
-//         return view('sitting_days');
-//     }
-//     public function deleteDays(Time $time){
-//         $time->delete();
-//         $time->doctors()->detach(auth()->user()->doctor->id);
-//         return redirect('/sitting-days')->with('success', 'Sitting day deleted successfully!');
-//     }
+    // Create doctor profile
+    $doctor = Doctor::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'specialization' => $request->specialization,
+        'diploma' => $request->diploma,
+        'phone_num' => $request->phone,
+        'user_id' => $user->id,
+    ]);
 
-// public function updateDays(Request $request, Time $time)
-// {
-//     $request->validate([
-//         'days' => 'required|string',
-//         'time' => 'required|string',
-//     ]);
+    $doctor->hospitals()->attach($request->hospital_id, ['schedule_id' => 1]);
 
-//     $time->update([
-//         'days' => $request->days,
-//         'time' => $request->time,
-//     ]);
-//     return redirect()->back()->with('success', 'Sitting day updated successfully.');
-// }
+    return back()->with('success', 'Doctor added successfully!');
+}
 }

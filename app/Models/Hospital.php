@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Hospital extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','address','email','phone_num'];
+    protected $fillable = ['name','address','email','phone_num','location','schedule_id'];
     public function doctors() {
         return $this->belongsToMany(Doctor::class, 'hospital_doctor');
     }

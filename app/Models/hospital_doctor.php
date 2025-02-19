@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class hospital_doctor extends Model
 {
+    use HasFactory;
+    protected $fillable = ['schedule_id'];
+
     public function doctor()
     {
         return $this->belongsTo(Doctor::class);
