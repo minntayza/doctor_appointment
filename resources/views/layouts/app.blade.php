@@ -17,12 +17,14 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-white">
-            @if(auth()->user()->is_admin){
+            @if(auth()->user()->is_admin)
 
-            }
+
+            @elseif(auth()->user()->is_doctor)
+
             @else
                 @include('layouts.navigation')
-            
+
             @endif
             <!-- Page Heading -->
             @isset($header)

@@ -69,4 +69,17 @@ class DoctorController extends Controller
 
     return back()->with('success', 'Doctor added successfully!');
 }
+
+//Doctor part
+    public function doctorDashboard(Doctor $doctor){
+        return view('doctor.doctor_dashboard');
+    }
+
+    public function viewPatients(Doctor $doctor){
+
+        return view('doctor.view_patients');
+    }
+    public function manageSchedule(Doctor $doctor){
+        return view('doctor.manage_schedule');
+    }
 }

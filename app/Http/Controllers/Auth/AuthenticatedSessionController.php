@@ -30,6 +30,9 @@ class AuthenticatedSessionController extends Controller
         if(auth()->user()->is_admin){
             return redirect('/admin-dashboard');
         }
+        if(auth()->user()->is_doctor){
+            return redirect('/doctor-dashboard');
+        }
         return redirect()->intended(route('dashboard', absolute: false));
     }
 
@@ -46,4 +49,5 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('/');
     }
+
 }

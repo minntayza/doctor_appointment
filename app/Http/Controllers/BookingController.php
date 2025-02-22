@@ -43,4 +43,17 @@ class BookingController extends Controller
         $booking->delete();
         return back();
     }
+
+    //doctor side
+    public function viewAppointments(Doctor $doctor)
+    {
+        $filter = request(['search', 'status']);
+
+        $bookings = auth()->user()->doctor->bookings()
+            ->filter($filter)
+            ->paginate(5)
+            ->withQueryString();
+
+        return view('doctor.view_appointments', compact('bookings'));
+    }
 }

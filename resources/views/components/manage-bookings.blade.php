@@ -25,6 +25,7 @@
                 <thead class="bg-gray-200">
                     <tr>
                         <th class="p-4 text-left">User</th>
+                        <th class="p-4 text-left">Doctor</th>
                         <th class="p-4 text-left">Date</th>
                         <th class="p-4 text-left">Booking Date</th>
                         <th class="p-4 text-left">Booking Time</th>
@@ -36,6 +37,7 @@
                     @foreach ($bookings as $booking)
                     <tr class="border-b">
                         <td class="p-4">{{ $booking->user->name }}</td>
+                        <td class="p-4">{{$booking->doctor->name}}</td>
                         <td class="p-4">{{ $booking->created_at->format('Y-m-d') }}</td>
                         <td class="p-4">{{ $booking->day}} | {{$booking->date}}</td>
                         <td class="p-4">{{$booking->time}} - {{$booking->end_time}}</td>

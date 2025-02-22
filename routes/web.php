@@ -5,6 +5,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Doctor;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,6 +29,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/bookings', [BookingController::class, 'index'])->name('bookings');
     Route::post('/doctors/{doctor}/bookings/{schedule}',[BookingController::class, 'book']);
     Route::delete('/bookings/{booking:id}',[BookingController::class, 'destroy']);
+
+    //doctor
+    Route::get('/doctor-dashboard', [DoctorController::class, 'doctorDashboard'])->name('doctor');
+    Route::get('/view-appointments', [BookingController::class, 'viewAppointments'])->name('viewAppointments');
+    Route::get('/view-patients', [DoctorController::class, 'viewPatients'])->name('viewPatients');
+    Route::get('/manage-schedule', [DoctorController::class, 'manageSchedule'])->name('manageSchedule');
 
     //admin
     Route::get('/admin-dashboard', [AdminController::class, 'index'])->name('admin');
