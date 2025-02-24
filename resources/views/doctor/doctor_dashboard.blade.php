@@ -5,7 +5,7 @@
         <x-side-bar/>
 
         <!-- Main Content -->
-        <x-doctor-dashboard/>
+        <x-doctor-dashboard :upcomingAppointmentsCount="$upcomingAppointmentsCount" :patientsCount="$patientsCount"/>
     </div>
 
 </x-app-layout>

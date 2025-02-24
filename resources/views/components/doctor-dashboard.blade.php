@@ -1,25 +1,58 @@
-<main class="flex-1 p-8 bg-gray-100 overflow-auto">
-    <div class="mb-6">
-        <h2 class="text-3xl font-bold">Welcome, Dr. {{ auth()->user()->name }}</h2>
-        <p class="text-gray-600 mt-1">Manage your schedule, patients, and profile here.</p>
+@props(['upcomingAppointmentsCount','patientsCount'])
+<div class="p-6 sm:ml-64 bg-gray-100 min-h-screen w-full">
+    @if (session('success'))
+    <div class="bg-green-500 text-white p-4 rounded-lg mb-6 shadow-md flex items-center justify-between">
+        <span>{{ session('success') }}</span>
+        <button onclick="this.parentElement.style.display='none'" class="text-white font-bold">&times;</button>
     </div>
+    @endif
+    <!-- Main Content -->
+    <div class="p-6">
+        <h1 class="text-4xl font-bold text-gray-900">Welcome, Dr. {{ auth()->user()->name }}</h1>
 
-    <!-- Quick Actions -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="p-4 bg-white rounded-lg shadow text-center">
-            <h3 class="text-lg font-semibold">Upcoming Appointments</h3>
-            <p class="text-gray-600 mt-2">View and manage your upcoming appointments.</p>
-            <a href="/view-appointments" class="inline-block mt-3 text-blue-500 hover:underline">View Appointments</a>
-        </div>
-        <div class="p-4 bg-white rounded-lg shadow text-center">
-            <h3 class="text-lg font-semibold">Patient List</h3>
-            <p class="text-gray-600 mt-2">Access and manage your patients' information.</p>
-            <a href="/view-patients" class="inline-block mt-3 text-blue-500 hover:underline">View Patients</a>
-        </div>
-        <div class="p-4 bg-white rounded-lg shadow text-center">
-            <h3 class="text-lg font-semibold">Manage Schedule</h3>
-            <p class="text-gray-600 mt-2">Set your availability and manage your schedule.</p>
-            <a href="/manage-schedule" class="inline-block mt-3 text-blue-500 hover:underline">Manage Schedule</a>
+        <!-- Stats Section -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8">
+            <!-- Card: Upcoming Appointments -->
+            <div class="bg-gradient-to-r from-blue-500 to-blue-700 p-6 rounded-2xl shadow-md text-white flex items-center">
+                <div class="p-4 bg-white bg-opacity-20 rounded-full">
+                    <svg class="w-10 h-10 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 10a3 3 0 1 0-3-3 3 3 0 0 0 3 3Zm5 1h-1a5 5 0 0 1-8 0H5a5 5 0 0 0-5 5v2a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a5 5 0 0 0-5-5Z"/>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-xl font-semibold">Upcoming Appointments</h3>
+                    <p class="text-3xl font-bold">{{ $upcomingAppointmentsCount }}</p>
+                    <a href="/view-appointments" class="inline-block mt-2 text-white underline">View Details</a>
+                </div>
+            </div>
+
+            <!-- Card: Patients -->
+            <div class="bg-gradient-to-r from-green-500 to-green-700 p-6 rounded-2xl shadow-md text-white flex items-center">
+                <div class="p-4 bg-white bg-opacity-20 rounded-full">
+                    <svg class="w-10 h-10 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377Z"/>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-xl font-semibold">Patients</h3>
+                    <p class="text-3xl font-bold">{{ $patientsCount }}</p>
+                    <a href="/view-patients" class="inline-block mt-2 text-white underline">View Details</a>
+                </div>
+            </div>
+
+            <!-- Card: Manage Schedule -->
+            <div class="bg-gradient-to-r from-yellow-500 to-yellow-700 p-6 rounded-2xl shadow-md text-white flex items-center">
+                <div class="p-4 bg-white bg-opacity-20 rounded-full">
+                    <svg class="w-10 h-10 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                        <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-xl font-semibold">Manage Schedule</h3>
+                    <p class="text-3xl font-bold">Set Availability</p>
+                    <a href="/manage-schedule" class="inline-block mt-2 text-white underline">Go to Schedule</a>
+                </div>
+            </div>
         </div>
     </div>
-</main>
+</div>

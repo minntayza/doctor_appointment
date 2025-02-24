@@ -72,7 +72,9 @@ class DoctorController extends Controller
 
 //Doctor part
     public function doctorDashboard(Doctor $doctor){
-        return view('doctor.doctor_dashboard');
+        $upcomingAppointmentsCount = auth()->user()->doctor->bookings->where('is_booked', '1')->count();
+        $patientsCount = auth()->user()->doctor->bookings->count();
+        return view('doctor.doctor_dashboard',['upcomingAppointmentsCount'=>$upcomingAppointmentsCount, 'patientsCount'=>$patientsCount]);
     }
 
     public function viewPatients(Doctor $doctor){

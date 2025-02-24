@@ -1,34 +1,63 @@
-<aside class="w-64 bg-gray-800 text-white p-4 space-y-6">
-    <a href="/doctor-dashboard">
-        <h1 class="text-2xl font-bold mb-6">Doctor Dashboard</h1>
+<aside class="w-64 bg-gray-900 text-white p-6 space-y-8 h-screen fixed">
+    <a href="/doctor-dashboard" class="flex items-center space-x-2">
+        <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" stroke-width="2"
+             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 20l9-7-9-7-9 7 9 7z"></path>
+        </svg>
+        <h1 class="text-2xl font-bold">Doctor Dashboard</h1>
     </a>
+
     <nav>
         <ul class="space-y-4">
-            <li class=" p-3 flex items-center space-x-2  hover:bg-gray-700 w-full">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M12 20l9-7-9-7-9 7 9 7z"></path></svg>
-                <a href="/view-appointments" class="hover:text-blue-400">Appointments</a>
+            <li>
+                <a href="/view-appointments" class="flex items-center p-3 space-x-3 rounded-lg
+                   hover:bg-blue-500 transition-all duration-200">
+                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405M19 13V7a2 2 0 00-2-2H7a2 2 0 00-2 2v6m4 4h6"></path>
+                    </svg>
+                    <span>Appointments</span>
+                </a>
             </li>
-            {{-- <li class=" p-3 flex items-center space-x-2  hover:bg-gray-700 w-full">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16l-4-4m0 0l4-4m-4 4h16"></path></svg>
-                <a href="/view-patients" class="hover:text-blue-400">Patients</a>
-            </li> --}}
-            <li class=" p-3 flex items-center space-x-2  hover:bg-gray-700 w-full">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                <a href="/manage-schedule" class="hover:text-blue-400">Schedule</a>
+            <li>
+                <a href="/view-patients" class="flex items-center p-3 space-x-3 rounded-lg
+                   hover:bg-blue-500 transition-all duration-200">
+                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>Patients</span>
+                </a>
             </li>
-            <li class=" p-3 flex items-center space-x-2  hover:bg-gray-700 w-full">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                <a href="" class="hover:text-blue-400">Profile Settings</a>
+            <li>
+                <a href="/manage-schedule" class="flex items-center p-3 space-x-3 rounded-lg
+                   hover:bg-blue-500 transition-all duration-200">
+                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h11m0 0l-4 4m4-4l-4-4m4 4H3"></path>
+                    </svg>
+                    <span>Schedule</span>
+                </a>
+            </li>
+            <li>
+                <a href="/profile-settings" class="flex items-center p-3 space-x-3 rounded-lg
+                   hover:bg-blue-500 transition-all duration-200">
+                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                    </svg>
+                    <span>Profile Settings</span>
+                </a>
             </li>
             <li>
                 <form action="/logout" method="POST">
                     @method('delete')
                     @csrf
-                    <button type="submit" class="flex items-center p-3 text-white rounded-lg hover:bg-gray-700 w-full">
-                        <svg class="w-6 h-6 text-white group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"/>
+                    <button type="submit" class="flex items-center w-full p-3 space-x-3 rounded-lg
+                            hover:bg-red-500 transition-all duration-200">
+                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4V4"></path>
                         </svg>
-                        <span class="ml-3 hover:text-blue-400">Sign Out</span>
+                        <span>Sign Out</span>
                     </button>
                 </form>
             </li>
