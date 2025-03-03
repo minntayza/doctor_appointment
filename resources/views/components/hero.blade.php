@@ -1,150 +1,143 @@
 <style>
-    a {
- position: relative;
- display: inline-block;
- cursor: pointer;
- outline: none;
- border: 0;
- vertical-align: middle;
- text-decoration: none;
- font-family: inherit;
- font-size: 15px;
-}
+    .hero-section {
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+        position: relative;
+        overflow: hidden;
+    }
 
-a.learn-more {
- font-weight: 600;
- color: #382b22;
- text-transform: uppercase;
- padding: 1.25em 2em;
- background: #fff0f0;
- border: 2px solid #b18597;
- border-radius: 0.75em;
- -webkit-transform-style: preserve-3d;
- transform-style: preserve-3d;
- -webkit-transition: background 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-transform 150ms cubic-bezier(0, 0, 0.58, 1);
- transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), background 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-transform 150ms cubic-bezier(0, 0, 0.58, 1);
-}
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(66, 153, 225, 0.05) 0%, rgba(129, 230, 217, 0.05) 100%);
+        z-index: 1;
+    }
 
-a.learn-more::before {
- position: absolute;
- content: '';
- width: 100%;
- height: 100%;
- top: 0;
- left: 0;
- right: 0;
- bottom: 0;
- background: #f9c4d2;
- border-radius: inherit;
- -webkit-box-shadow: 0 0 0 2px #b18597, 0 0.625em 0 0 #ffe3e2;
- box-shadow: 0 0 0 2px #b18597, 0 0.625em 0 0 #ffe3e2;
- -webkit-transform: translate3d(0, 0.75em, -1em);
- transform: translate3d(0, 0.75em, -1em);
- transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), box-shadow 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-transform 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
-}
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
 
-a.learn-more:hover {
- background: #ffe9e9;
- -webkit-transform: translate(0, 0.25em);
- transform: translate(0, 0.25em);
-}
-
-a.learn-more:hover::before {
- -webkit-box-shadow: 0 0 0 2px #b18597, 0 0.5em 0 0 #ffe3e2;
- box-shadow: 0 0 0 2px #b18597, 0 0.5em 0 0 #ffe3e2;
- -webkit-transform: translate3d(0, 0.5em, -1em);
- transform: translate3d(0, 0.5em, -1em);
-}
-
-a.learn-more:active {
- background: #ffe9e9;
- -webkit-transform: translate(0em, 0.75em);
- transform: translate(0em, 0.75em);
-}
-
-a.learn-more:active::before {
- -webkit-box-shadow: 0 0 0 2px #b18597, 0 0 #ffe3e2;
- box-shadow: 0 0 0 2px #b18597, 0 0 #ffe3e2;
- -webkit-transform: translate3d(0, 0, -1em);
- transform: translate3d(0, 0, -1em);
-}
-h1 {
-        font-size: 3rem; /* Base font size */
-        font-weight: bold;
-        background-image: linear-gradient(to right, #008080, #4B0082);
+    h1 {
+        font-size: 4rem;
+        font-weight: 800;
+        line-height: 1.2;
+        background: linear-gradient(to right, #2c5282, #4299e1);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
-        margin-bottom: 1rem; /* Add some bottom margin */
+        margin-bottom: 1.5rem;
+        animation: fadeInUp 1s ease-out;
     }
 
-    /* Responsive adjustments */
-    @media (min-width: 640px) { /* sm: breakpoint (small screens) */
-        h1 {
-            font-size: 3.5rem; /* Slightly larger on small screens */
+    .hero-text {
+        font-size: 1.125rem;
+        line-height: 1.8;
+        color: #4a5568;
+        margin-bottom: 2rem;
+        animation: fadeInUp 1s ease-out 0.2s;
+        opacity: 0;
+        animation-fill-mode: forwards;
+    }
+
+    .hero-image {
+        transform: translateY(20px);
+        animation: float 6s ease-in-out infinite;
+        filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
+    }
+
+    .get-started-btn {
+        position: relative;
+        padding: 1rem 2.5rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        color: white;
+        font-weight: 600;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+        display: inline-block;
+        text-decoration: none;
+    }
+
+    .get-started-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+        transform: translateX(-100%);
+        transition: transform 0.5s ease;
+    }
+
+    .get-started-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .get-started-btn:hover::before {
+        transform: translateX(100%);
+    }
+
+    .get-started-btn:active {
+        transform: translateY(-1px);
+        box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
     }
 
-    @media (min-width: 768px) { /* md: breakpoint (medium screens) */
-        h1 {
-            font-size: 4rem; /* Larger on medium screens */
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-20px);
         }
     }
-
-    @media (min-width: 1024px) { /* lg: breakpoint (large screens) */
-        h1 {
-            font-size: 4.5rem; /* Largest on large screens */
-        }
-    }
-
-    p {
-        margin-bottom: 1.5rem; /* Add bottom margin to paragraphs */
-    }
-
-    .container {
-        padding-left: 1rem; /* Adjust padding as needed */
-        padding-right: 1rem; /* Adjust padding as needed */
-    }
-
-    @media (min-width: 1024px) {
-        .container {
-            padding-left: 4rem; /* Larger padding on large screens */
-            padding-right: 4rem; /* Larger padding on large screens */
-        }
-    }
-
-
-    .learn-more {
-        display: inline-block; /* Ensure it behaves like an inline element */
-    }
-
-    img {
-        max-width: 100%; /* Make sure the image scales down */
-        height: auto;   /* Maintain aspect ratio */
-        display: block; /* Prevent image from affecting layout */
-        margin: 0 auto;  /* Center the image */
-    }
-
 </style>
 
-{{-- hero section --}}
-<div class="container px-6 py-16 mx-auto">
-    <div class="items-center lg:flex lg:flex-wrap">  <div class="w-full lg:w-1/2 lg:order-1"> <div class="lg:max-w-lg">
-                <h1>
-                    Doctor Appointment
-                    System
-                </h1>
-                <p class="mt-3 text-black dark:text-gray-400">
-                    Experience a new era of healthcare efficiency with our state-of-the-art Hospital Management System. Designed to streamline every aspect of hospital operations, from patient registration and appointments to billing and reporting, our platform empowers healthcare providers to focus on what truly matters—delivering exceptional patient care. With advanced features, intuitive interfaces, and secure data management, we ensure seamless collaboration across departments, improving both productivity and patient satisfaction. Transform your hospital into a smarter, more efficient healthcare facility today.
-                </p>
-                <a href="/register" class="learn-more mt-5">
-                    Learn More
-                </a>
+<div class="hero-section">
+    <div class="container px-6 py-24 mx-auto">
+        <div class="items-center lg:flex lg:flex-wrap">
+            <div class="w-full lg:w-1/2 lg:order-1">
+                <div class="hero-content lg:max-w-lg">
+                    <h1 class="mb-8">
+                        Doctor Appointment System
+                    </h1>
+                    <p class="hero-text">
+                        Experience a new era of healthcare efficiency with our state-of-the-art Hospital Management System. Designed to streamline every aspect of hospital operations, from patient registration and appointments to billing and reporting, our platform empowers healthcare providers to focus on what truly matters—delivering exceptional patient care.
+                    </p>
+                    <div class="mt-8">
+                        <a href="/register" class="get-started-btn">
+                            Get Started
+                            <svg class="inline-block ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class=" lg:flex items-center justify-center w-full mt-6 lg:mt-0 lg:w-1/2 lg:order-2">
-            <img src="./images/Hospital.svg" alt="Hospital.svg" class="w-full h-auto">
+            <div class="lg:flex items-center justify-center w-full mt-10 lg:mt-0 lg:w-1/2 lg:order-2">
+                <img src="./images/Hospital.svg" alt="Hospital.svg" class="hero-image w-full h-auto max-w-2xl">
+            </div>
         </div>
     </div>
 </div>

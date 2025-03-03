@@ -17,13 +17,15 @@
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-100">
             <div>
-                <a href="/">
-                    <h1 class=" text-3xl pb-5 font-bold lg:text-4xl"><span class="text-transparent bg-gradient-to-br bg-clip-text from-teal-500 via-indigo-500 to-sky-500 dark:from-teal-200 dark:via-indigo-300 dark:to-sky-500">
-                        Doctor Appointment
-                    </span>
-                    <span class="text-transparent bg-gradient-to-tr bg-clip-text from-blue-500 via-pink-500 to-red-500 dark:from-sky-300 dark:via-pink-300 dark:to-red-500">
-                        System
-                    </span></h1>
+                <a href="/" class="inline-block hover:opacity-90 transition-opacity duration-300">
+                    <h1 class="text-xl font-bold pb-5 font-bold lg:text-4xl" style="line-height: 1.2;">
+                        <span style="background: linear-gradient(135deg, #14b8a6 0%, #6366f1 50%, #0ea5e9 100%); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block;">
+                            Doctor Appointment
+                        </span>
+                        <span style="background: linear-gradient(45deg, #3b82f6 0%, #ec4899 50%, #ef4444 100%); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block;">
+                            System
+                        </span>
+                    </h1>
                 </a>
             </div>
 

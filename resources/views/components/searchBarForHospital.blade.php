@@ -1,22 +1,36 @@
-<div class="bg-sky-500" id="find">
-    <div class="max-w-lg mx-auto py-5 mt-10">
-        <h1 class="text-lg font-bold font-mono text-gray-100 capitalize lg:text-xl dark:text-gray-100">Find Hospitals</h1>
-        <h2 class="lg:text-4xl text-xl font-mono font-bold lg:py-5 py-3">Let’s get started <br> for booking</h2>
-        <p class="lg:text-lg text-start lg:py-5 py-3 text-slate-200 font-serif">
-            Duo ipsum erat stet dolor sea ut nonumy tempor. Tempor duo lorem eos sit sed ipsum takimata ipsum sit est. Ipsum ea voluptua ipsum sit justo
+<div class="relative bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl overflow-hidden" id="find">
+    <div class="absolute inset-0 bg-pattern opacity-10"></div>
+    <div class="max-w-2xl mx-auto py-16 px-8 relative z-10">
+        <h1 class="text-3xl font-bold text-white mb-4">Find the Best Hospitals</h1>
+        <h2 class="text-5xl font-bold text-white mb-6">
+            Your Health Journey
+            <span class="block text-blue-200">Starts Here</span>
+        </h2>
+        <p class="text-lg text-blue-100 mb-8 leading-relaxed max-w-xl">
+            Discover top-rated healthcare facilities and expert medical professionals all in one place.
+            Your well-being is our priority.
         </p>
 
-<form method="GET" action="/hospitals" class="max-w-md mx-auto">
-    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-    <div class="relative">
-        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-            </svg>
-        </div>
-        <input name="search" value="{{request('search')}}" type="search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Type Hospital's name..." required />
-        <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
-    </div>
-</form>
+        <!-- Search Form -->
+        <form method="GET" action="/hospitals" class="relative max-w-xl">
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+                <input
+                    name="search"
+                    value="{{request('search')}}"
+                    type="search"
+                    class="w-full pl-12 pr-32 py-4 text-gray-700 bg-white rounded-full border-none focus:ring-2 focus:ring-blue-400 shadow-lg"
+                    placeholder="Search hospitals..."
+                    required
+                />
+                <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 px-6 py-2.5 bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-medium rounded-full hover:from-blue-600 hover:to-indigo-600 transition-all duration-200 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Search
+                </button>
+            </div>
+        </form>
     </div>
 </div>

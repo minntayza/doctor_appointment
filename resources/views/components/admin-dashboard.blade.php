@@ -1,66 +1,106 @@
 @props(['pendingBookingsCount','bookingsCount','bookings'])
-<div class="p-6 sm:ml-64 bg-gray-100 min-h-screen">
-    @if (session('success'))
-    <div class="bg-green-500 text-white p-4 rounded-lg mb-6 shadow-md flex items-center justify-between">
-        <span>{{ session('success') }}</span>
-        <button onclick="this.parentElement.style.display='none'" class="text-white font-bold">&times;</button>
-    </div>
-    @endif
-    <!-- Main Content -->
-    <div class="p-6">
-        <h1 class="text-4xl font-bold text-gray-900">Welcome, Admin</h1>
+<div style="min-height: 100vh; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); background-attachment: fixed;">
+    <div class="p-6 sm:ml-64">
+        @if (session('success'))
+        <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-lg mb-6 shadow-sm flex items-center justify-between">
+            <div class="flex items-center">
+                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span class="text-green-700">{{ session('success') }}</span>
+            </div>
+            <button onclick="this.parentElement.style.display='none'" class="text-green-600 hover:text-green-800 transition-colors">&times;</button>
+        </div>
+        @endif
 
-        <!-- Stats Section -->
-        <div class="grid grid-cols-1 sm:grid-cols-2  gap-6 mt-8">
-            <!-- Card: Total Users -->
-            <div class="bg-gradient-to-r from-blue-500 to-blue-700 p-6 rounded-2xl shadow-md text-white flex items-center">
-                <div class="p-4 bg-white bg-opacity-20 rounded-full">
-                    <svg class="w-10 h-10 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 10a3 3 0 1 0-3-3 3 3 0 0 0 3 3Zm5 1h-1a5 5 0 0 1-8 0H5a5 5 0 0 0-5 5v2a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a5 5 0 0 0-5-5Z"/>
-                    </svg>
+        <!-- Main Content -->
+        <div class="p-8">
+            <div class="flex items-center justify-between mb-12">
+                <div>
+                    <h1 class="text-4xl font-bold text-gray-900">Admin Dashboard</h1>
+                    <p class="mt-2 text-gray-600">Overview of your system's performance</p>
                 </div>
-                <div class="ml-4">
-                    <h3 class="text-xl font-semibold">Total Users</h3>
-                    <p class="text-3xl font-bold">{{ auth()->user()->all()->count() }}</p>
+                <div class="text-sm text-gray-600">
+                    {{ now()->format('l, F j, Y') }}
                 </div>
             </div>
 
-            <!-- Card: Total Bookings -->
-            <div class="bg-gradient-to-r from-green-500 to-green-700 p-6 rounded-2xl shadow-md text-white flex items-center">
-                <div class="p-4 bg-white bg-opacity-20 rounded-full">
-                    <svg class="w-10 h-10 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377Z"/>
-                    </svg>
+            <!-- Stats Section -->
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
+                <!-- Card: Total Users -->
+                <div style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);"
+                     class="rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 bg-white/20 rounded-xl">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                                </svg>
+                            </div>
+                            <span class="text-white/70 text-sm">Total Users</span>
+                        </div>
+                        <div class="text-white">
+                            <p class="text-3xl font-bold">{{ auth()->user()->all()->count() }}</p>
+                            <p class="text-xs mt-1 text-white/70">Registered accounts</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="ml-4">
-                    <h3 class="text-xl font-semibold">Total Bookings</h3>
-                    <p class="text-3xl font-bold">{{$bookings->count()}}</p>
-                </div>
-            </div>
 
-            <!-- Card: Approvaled -->
-            <div class="bg-gradient-to-r from-yellow-500 to-yellow-700 p-6 rounded-2xl shadow-md text-white flex items-center">
-                <div class="p-4 bg-white bg-opacity-20 rounded-full">
-                    <svg class="w-10 h-10 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                        <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
-                    </svg>
+                <!-- Card: Total Bookings -->
+                <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);"
+                     class="rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 bg-white/20 rounded-xl">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <span class="text-white/70 text-sm">Total Bookings</span>
+                        </div>
+                        <div class="text-white">
+                            <p class="text-3xl font-bold">{{$bookings->count()}}</p>
+                            <p class="text-xs mt-1 text-white/70">All time bookings</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="ml-4">
-                    <h3 class="text-xl font-semibold">Approved Bookings</h3>
-                    <p class="text-3xl font-bold">{{ $pendingBookingsCount }}</p>
-                </div>
-            </div>
 
-            <!-- Card: Pending Approvals -->
-            <div class="bg-gradient-to-r from-red-500 to-red-700 p-6 rounded-2xl shadow-md text-white flex items-center">
-                <div class="p-4 bg-white bg-opacity-20 rounded-full">
-                    <svg class="w-10 h-10 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                        <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
-                    </svg>
+                <!-- Card: Approved Bookings -->
+                <div style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);"
+                     class="rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 bg-white/20 rounded-xl">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <span class="text-white/70 text-sm">Approved</span>
+                        </div>
+                        <div class="text-white">
+                            <p class="text-3xl font-bold">{{ $pendingBookingsCount }}</p>
+                            <p class="text-xs mt-1 text-white/70">Confirmed appointments</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="ml-4">
-                    <h3 class="text-xl font-semibold">Pending Approvals</h3>
-                    <p class="text-3xl font-bold">{{ $bookingsCount }}</p>
+
+                <!-- Card: Pending Approvals -->
+                <div style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);"
+                     class="rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 bg-white/20 rounded-xl">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <span class="text-white/70 text-sm">Pending</span>
+                        </div>
+                        <div class="text-white">
+                            <p class="text-3xl font-bold">{{ $bookingsCount }}</p>
+                            <p class="text-xs mt-1 text-white/70">Awaiting approval</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

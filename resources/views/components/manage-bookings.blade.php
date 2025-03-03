@@ -1,92 +1,121 @@
-<div class="p-6 sm:ml-64 bg-gray-100 min-h-screen">
-    @if (session('success'))
-    <div class="bg-green-500 text-white p-4 rounded-lg mb-6 shadow-md flex items-center justify-between">
-        <span>{{ session('success') }}</span>
-        <button onclick="this.parentElement.style.display='none'" class="text-white font-bold">&times;</button>
-    </div>
-    @endif
-    <div class="max-w-7xl mx-auto bg-white p-6 rounded-lg shadow-lg">
-        <h1 class="text-3xl font-bold text-gray-900 mb-6">Manage Bookings</h1>
-
-        {{-- <div class="flex justify-between items-center mb-6">
-            <form method="GET" action="/manage-users" class="relative w-1/3">
-                <input type="text" name="search" type="search" value="{{request('search')}}" id="search" placeholder="Search users..."
-                       class="p-3 w-full  rounded-lg shadow-sm focus:ring focus:ring-blue-300">
-                <button type="submit"
-                        class="absolute right-0 top-0 p-3 rounded-r-lg bg-blue-950 text-white hover:bg-blue-900 focus:ring focus:ring-blue-300">
-                    Search
-                </button>
-            </form>
-        </div> --}}
-
-        <!-- Bookings Table -->
-        <div class="overflow-x-auto">
-            <table class="min-w-full bg-white border rounded-lg shadow-md">
-                <thead class="bg-gray-200">
-                    <tr>
-                        <th class="p-4 text-left">User</th>
-                        <th class="p-4 text-left">Doctor</th>
-                        <th class="p-4 text-left">Date</th>
-                        <th class="p-4 text-left">Booking Date</th>
-                        <th class="p-4 text-left">Booking Time</th>
-                        <th class="p-4 text-left">Status</th>
-                        <th class="p-4 text-left">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($bookings as $booking)
-                    <tr class="border-b">
-                        <td class="p-4">{{ $booking->user->name }}</td>
-                        <td class="p-4">{{$booking->doctor->name}}</td>
-                        <td class="p-4">{{ $booking->created_at->format('Y-m-d') }}</td>
-                        <td class="p-4">{{ $booking->day}} | {{$booking->date}}</td>
-                        <td class="p-4">{{$booking->time}} - {{$booking->end_time}}</td>
-                        <td class="p-4">
-                            @if($booking->is_booked)
-                                <span class="px-3 py-1 text-sm font-semibold text-green-600 bg-green-200 rounded-full">
-                                    Approved
-                                </span>
-                            @else
-                                <span class="px-3 py-1 text-sm font-semibold text-yellow-600 bg-yellow-200 rounded-full">
-                                    Pending
-                                </span>
-                            @endif
-                        </td>
-                        <td class="p-4 flex space-x-2">
-                            @if(!$booking->is_booked)
-                                <form method="POST" action="/manage-bookings/{{$booking->id}}/approve">
-                                    @csrf
-                                    @method('PUT')
-                                    <button type="submit" class="px-3 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600">
-                                        Approve
-                                    </button>
-                                </form>
-                                <form action="/manage-bookings/{{$booking->id}}/delete" method="POST">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit" class="px-4 py-2 text-sm font-semibold text-white bg-red-500 hover:bg-red-600 rounded-lg">
-                                        Delete
-                                    </button>
-                                </form>
-                            @else
-                            <form method="POST" action="/manage-bookings/{{$booking->id}}/cancel">
-                                @csrf
-                                @method('PUT')
-                                <button type="submit" class="px-3 py-2 bg-yellow-500 text-white rounded-lg shadow-md hover:bg-yellow-600">
-                                    Cancel
-                                </button>
-                            </form>
-                            @endif
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+<div style="min-height: 100vh; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); background-attachment: fixed;">
+    <div class="p-6 sm:ml-64">
+        @if (session('success'))
+        <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-lg mb-6 shadow-sm flex items-center justify-between">
+            <div class="flex items-center">
+                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span class="text-green-700">{{ session('success') }}</span>
+            </div>
+            <button onclick="this.parentElement.style.display='none'" class="text-green-600 hover:text-green-800">&times;</button>
         </div>
+        @endif
 
-        <!-- Pagination -->
-        {{-- <div class="mt-6">
-            {{ $bookings->links() }}
-        </div> --}}
+        <div class="max-w-7xl mx-auto">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">Manage Bookings</h1>
+                    <p class="mt-2 text-gray-600">Overview of all appointment bookings</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <span class="px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-medium">
+                        Total: {{ $bookings->count() }} Bookings
+                    </span>
+                </div>
+            </div>
+
+            <!-- Bookings Table -->
+            <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                            <tr class="bg-gray-50">
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patient</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Doctor</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Schedule</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            @foreach ($bookings as $booking)
+                            <tr class="hover:bg-gray-50 transition-colors duration-200">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0 h-10 w-10">
+                                            <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+                                                <span class="text-blue-600 font-medium">{{ substr($booking->user->name, 0, 1) }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900">{{ $booking->user->name }}</div>
+                                            <div class="text-sm text-gray-500">Patient</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-gray-900">Dr. {{$booking->doctor->name}}</div>
+                                    <div class="text-sm text-gray-500">{{$booking->doctor->specialization}}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">{{$booking->day}}, {{$booking->date}}</div>
+                                    <div class="text-sm text-gray-500">{{$booking->time}} - {{$booking->end_time}}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    @if($booking->is_booked)
+                                        <span class="px-3 py-1 text-sm font-medium text-green-700 bg-green-100 rounded-full">
+                                            Approved
+                                        </span>
+                                    @else
+                                        <span class="px-3 py-1 text-sm font-medium text-yellow-700 bg-yellow-100 rounded-full">
+                                            Pending
+                                        </span>
+                                    @endif
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    <div class="flex items-center justify-center space-x-2">
+                                        @if(!$booking->is_booked)
+                                            <form method="POST" action="/manage-bookings/{{$booking->id}}/approve">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200">
+                                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                                    </svg>
+                                                    Approve
+                                                </button>
+                                            </form>
+                                            <form action="/manage-bookings/{{$booking->id}}/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this booking?');">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200">
+                                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                                    </svg>
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        @else
+                                            <form method="POST" action="/manage-bookings/{{$booking->id}}/cancel">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-yellow-700 bg-yellow-100 hover:bg-yellow-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors duration-200">
+                                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                                    </svg>
+                                                    Cancel
+                                                </button>
+                                            </form>
+                                        @endif
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

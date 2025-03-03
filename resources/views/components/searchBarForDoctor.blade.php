@@ -1,24 +1,53 @@
-
-<div class="bg-sky-500" id="find">
-    <div class="max-w-lg mx-auto py-5 mt-10">
-        <h1 class="text-lg font-bold font-mono text-gray-100 capitalize lg:text-xl dark:text-gray-100">Find Doctors</h1>
-        <h2 class="lg:text-4xl text-xl font-mono font-bold lg:py-5 py-3">Let’s get started <br> for booking</h2>
-        <p class="lg:text-lg text-start lg:py-5 py-3 text-slate-200 font-serif">
-            Duo ipsum erat stet dolor sea ut nonumy tempor. Tempor duo lorem eos sit sed ipsum takimata ipsum sit est. Ipsum ea voluptua ipsum sit justo
-        </p>
-
-<form method="GET" action="/doctors" class="max-w-md mx-auto">
-    @csrf
-    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-    <div class="relative">
-        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-            </svg>
+<div style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);" class="rounded-3xl overflow-hidden shadow-2xl" id="find">
+    <div class="max-w-2xl mx-auto py-12 px-6">
+        <div class="text-center mb-8">
+            <span class="inline-block px-4 py-1 rounded-full bg-white/20 text-white text-sm font-semibold mb-4">
+                Find Your Doctor
+            </span>
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
+                Your Health Journey
+                <span class="block text-blue-100">Starts Here</span>
+            </h2>
+            <p class="text-blue-100 text-lg max-w-xl mx-auto leading-relaxed">
+                Connect with experienced healthcare professionals and book your appointment with just a few clicks.
+            </p>
         </div>
-        <input name="search" value="{{request('search')}}" type="search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Type Doctor's name" required />
-        <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
-    </div>
-</form>
+
+        <form method="GET" action="/doctors" class="relative max-w-xl mx-auto">
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+                <input
+                    name="search"
+                    value="{{request('search')}}"
+                    type="search"
+                    class="w-full pl-12 pr-32 py-4 text-gray-700 bg-white rounded-full border-none focus:ring-4 focus:ring-blue-300 shadow-lg text-base"
+                    placeholder="Search for doctors by name or specialty..."
+                    required
+                />
+                <button type="submit"
+                    class="absolute right-2 top-1/2 transform -translate-y-1/2 px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-full hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-md">
+                    Search
+                </button>
+            </div>
+            <div class="mt-4 flex justify-center gap-4">
+                <span class="inline-flex items-center text-sm text-blue-100">
+                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                    </svg>
+                    Verified Doctors
+                </span>
+                <span class="inline-flex items-center text-sm text-blue-100">
+                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"/>
+                    </svg>
+                    24/7 Available
+                </span>
+            </div>
+        </form>
     </div>
 </div>
