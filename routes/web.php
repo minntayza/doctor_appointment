@@ -35,6 +35,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/view-appointments', [BookingController::class, 'viewAppointments'])->name('viewAppointments');
     Route::get('/view-patients', [DoctorController::class, 'viewPatients'])->name('viewPatients');
     Route::get('/manage-schedule', [DoctorController::class, 'manageSchedule'])->name('manageSchedule');
+    Route::post('/manage-schedule/add', [DoctorController::class, 'storeSchedule'])->name('addSchedule');
+    Route::delete('/manage-schedule/{schedule:id}/delete',[DoctorController::class,'deleteSchedule'])->name('deleteSchedule');
+    Route::put('/manage-schedule/{schedule:id}/update',[DoctorController::class, 'updateSchedule']);
 
     //admin
     Route::get('/admin-dashboard', [AdminController::class, 'index'])->name('admin');

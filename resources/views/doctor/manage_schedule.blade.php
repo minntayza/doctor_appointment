@@ -5,7 +5,7 @@
         <x-side-bar/>
 
         <!-- Main Content -->
-        <x-manage-schedule/>
+        <x-manage-schedule :schedules="$schedules" :doctor="$doctor" :hospitals="$hospitals" :doctorHospitals="$doctorHospitals"/>
     </div>
 
 </x-app-layout>

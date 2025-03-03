@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Doctor;
 use App\Models\Hospital;
+use App\Models\hospital_doctor;
 use App\Models\Schedule;
 use App\Models\Time;
 use App\Models\User;
@@ -72,16 +73,92 @@ class DoctorController extends Controller
 
 //Doctor part
     public function doctorDashboard(Doctor $doctor){
-        $upcomingAppointmentsCount = auth()->user()->doctor->bookings->where('is_booked', '1')->count();
+        $upcomingAppointmentsCount = auth()->user()->doctor->bookings()->where('is_booked', '1')->count();
         $patientsCount = auth()->user()->doctor->bookings->count();
         return view('doctor.doctor_dashboard',['upcomingAppointmentsCount'=>$upcomingAppointmentsCount, 'patientsCount'=>$patientsCount]);
     }
 
-    public function viewPatients(Doctor $doctor){
+    public function viewPatients(Doctor $doctor)
+    {
+        $bookings = $doctor->bookings()->paginate(5);
+        return view('doctor.view_patients', compact('bookings'));
+    }
+    // public function manageSchedule(Doctor $doctor)
+    // {
+    //     $times = auth()->user()->doctor->bookings;
+    //     return view('doctor.manage_schedule', compact('times', 'doctor'));
+    // }
+    public function manageSchedule()
+    {
+        $hospitals = Hospital::all();
+        $doctorHospitals = auth()->user()->doctor->hospitals;
+        $schedules = hospital_doctor::where('doctor_id', auth()->user()->doctor->id)->with('hospital', 'schedule')->get();
+        return view('doctor.manage_schedule', ['schedules' => $schedules,'doctor' => auth()->user()->doctor,'hospitals' => $hospitals, 'doctorHospitals' => $doctorHospitals]);
+    }
 
-        return view('doctor.view_patients');
+    public function storeSchedule(Request $request, Doctor $doctor)
+    {
+        $request->validate([
+            'hospital_id' => 'required',
+            'day' => 'required',
+            'time' => 'required',
+            'end_time' => 'required',
+        ]);
+
+        $schedule = Schedule::create([
+            'day' => $request->day,
+            'date' => $request->date,
+            'time' => $request->time,
+            'end_time' => $request->end_time,
+        ]);
+
+        hospital_doctor::create([
+            'hospital_id' => $request->hospital_id,
+            'doctor_id' => auth()->user()->doctor->id,
+            'schedule_id' => $schedule->id
+        ]);
+
+        return redirect()->back()->with('success', 'Schedule added successfully');
     }
-    public function manageSchedule(Doctor $doctor){
-        return view('doctor.manage_schedule');
+
+    public function updateSchedule(Request $request, Schedule $schedule)
+{
+    $request->validate([
+        'day' => 'required|string',
+        'date' => 'required|date|after_or_equal:today',
+        'time' => 'required',
+        'end_time' => 'required|after:time',
+    ]);
+
+    $schedule->update([
+        'day' => $request->day,
+        'date' => $request->date,
+        'time' => $request->time,
+        'end_time' => $request->end_time
+    ]);
+
+    return redirect()->back()->with('success', 'Schedule updated successfully');
+}
+
+    public function deleteSchedule($scheduleId)
+{
+    $doctor = auth()->user()->doctor;
+
+    if (!$doctor) {
+        return back()->withErrors(['error' => 'Unauthorized: You must be a doctor to delete schedules.']);
     }
+    $hospitalDoctor = hospital_doctor::where('doctor_id', $doctor->id)
+        ->where('schedule_id', $scheduleId)
+        ->first();
+
+    if (!$hospitalDoctor) {
+        return back()->withErrors(['error' => 'Schedule not found or unauthorized.']);
+    }
+
+    Schedule::where('id', $scheduleId)->delete();
+
+    $hospitalDoctor->delete();
+
+    return redirect()->back()->with('success', 'Schedule deleted successfully');
+}
 }

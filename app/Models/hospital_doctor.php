@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class hospital_doctor extends Model
 {
     use HasFactory;
-    protected $fillable = ['schedule_id'];
+    protected $fillable = ['schedule_id','hospital_id','doctor_id'];
+    protected $table = 'hospital_doctor';
 
     public function doctor()
     {

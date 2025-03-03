@@ -5,7 +5,7 @@
         <x-side-bar/>
 
         <!-- Main Content -->
-        <x-view-patients/>
+        <x-view-patients :bookings="$bookings"/>
     </div>
 
 </x-app-layout>

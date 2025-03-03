@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-    <a href="" class=" text-blue-500 font-bold">Available Booking Schedule</a>
+    <a href="" class=" text-blue-500 font-bold hover:shadow-lg">Available Booking Schedule</a>
     <x-booking :doctor="$doctor" :hospital="$hospital"/>
     </div>
 </div>

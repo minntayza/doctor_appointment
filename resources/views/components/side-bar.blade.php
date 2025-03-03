@@ -20,15 +20,6 @@
                 </a>
             </li>
             <li>
-                <a href="/view-patients" class="flex items-center p-3 space-x-3 rounded-lg
-                   hover:bg-blue-500 transition-all duration-200">
-                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    <span>Patients</span>
-                </a>
-            </li>
-            <li>
                 <a href="/manage-schedule" class="flex items-center p-3 space-x-3 rounded-lg
                    hover:bg-blue-500 transition-all duration-200">
                     <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -38,7 +29,7 @@
                 </a>
             </li>
             <li>
-                <a href="/profile-settings" class="flex items-center p-3 space-x-3 rounded-lg
+                <a href="/profile" class="flex items-center p-3 space-x-3 rounded-lg
                    hover:bg-blue-500 transition-all duration-200">
                     <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
