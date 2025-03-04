@@ -12,10 +12,9 @@ class Schedule extends Model
     protected $fillable = ['day', 'time', 'end_time','date'];
     public function hospitalDoctors()
     {
-        return $this->hasMany(hospital_doctor::class); // Or belongsToMany if you want to access Doctor and Hospital directly
+        return $this->hasMany(hospital_doctor::class);
     }
 
-    // If you want to access doctors and hospitals directly through the schedule
     public function doctors() {
         return $this->belongsToMany(Doctor::class, 'hospital_doctor', 'schedule_id', 'doctor_id');
     }

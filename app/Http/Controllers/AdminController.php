@@ -20,6 +20,11 @@ class AdminController extends Controller
         $filter = request(key: ['search']);
         return view('admin.manage_users', ['users' => User::filter($filter)->paginate(5)->withQueryString()]);
     }
+    public function destroyUser($id) {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return back()->with('success', 'User deleted successfully!');
+    }
     public function logout()
 {
     auth()->logout();
@@ -32,7 +37,7 @@ class AdminController extends Controller
         return view('admin.bookings',['bookings' => $bookings]);
     }
     public function doctors(){
-        $filter = request()->only(['search', 'hospital', 'specialty']); 
+        $filter = request()->only(['search', 'hospital', 'specialty']);
         return view('admin.manage_doctors', ['doctors' => Doctor::filter($filter)->latest()->paginate(5)->withQueryString()]);
     }
     public function hospitals(){

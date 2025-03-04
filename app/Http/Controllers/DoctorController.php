@@ -66,7 +66,7 @@ class DoctorController extends Controller
         'user_id' => $user->id,
     ]);
 
-    $doctor->hospitals()->attach($request->hospital_id, ['schedule_id' => 1]);
+    $doctor->hospitals()->attach($request->hospital_id, ['schedule_id' => null]);
 
     return back()->with('success', 'Doctor added successfully!');
 }

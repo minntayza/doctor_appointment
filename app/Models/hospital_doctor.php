@@ -24,6 +24,6 @@ class hospital_doctor extends Model
     // A doctor-hospital pairing can have one schedule
     public function schedule()
     {
-        return $this->belongsTo(Schedule::class); // This represents the one-to-many from schedule to hospital_doctor
+        return $this->belongsTo(Schedule::class);
     }
 }

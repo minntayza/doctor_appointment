@@ -45,18 +45,18 @@
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 h-10 w-10">
                                             <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
-                                                <span class="text-blue-600 font-medium">{{ substr($booking->user->name, 0, 1) }}</span>
+                                                <span class="text-blue-600 font-medium">{{ substr($booking->username, 0, 1) }}</span>
                                             </div>
                                         </div>
                                         <div class="ml-4">
-                                            <div class="text-sm font-medium text-gray-900">{{ $booking->user->name }}</div>
+                                            <div class="text-sm font-medium text-gray-900">{{ $booking->username }}</div>
                                             <div class="text-sm text-gray-500">Patient</div>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-gray-900">Dr. {{$booking->doctor->name}}</div>
-                                    <div class="text-sm text-gray-500">{{$booking->doctor->specialization}}</div>
+                                    <div class="text-sm font-medium text-gray-900">Dr. {{$booking->doc_name}}</div>
+                                    <div class="text-sm text-gray-500">{{$booking->doc_skills}}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">{{$booking->day}}, {{$booking->date}}</div>

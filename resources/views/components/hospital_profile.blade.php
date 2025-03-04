@@ -61,7 +61,7 @@
                 Available Doctors
             </h2>
 
-        @foreach ( $hospital->doctors as $doctor )
+        @foreach ( $hospital->doctors->unique('id') as $doctor )
         <x-doctor-card :doctor="$doctor"/>
         @endforeach
     </div>

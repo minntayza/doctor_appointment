@@ -46,7 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/manage-doctors', [AdminController::class, 'doctors']);
     Route::get('/manage-hospitals', [AdminController::class, 'hospitals']);
     Route::get('/manage-users/edit', [AdminController::class, 'delete']);
-    Route::post('/manage-users/toggle-role/{user}', [AdminController::class, 'toggleRole'])->name('users.toggleRole');
+    Route::delete('/manage-users/{id}/delete', [AdminController::class, 'destroyUser']);    Route::post('/manage-users/toggle-role/{user}', [AdminController::class, 'toggleRole'])->name('users.toggleRole');
     Route::delete('/manage-bookings/{bookings:id}/delete', [AdminController::class, 'delete']);
     Route::delete('/logout', [AdminController::class, 'logout']);
     Route::put('/manage-bookings/{booking:id}/approve',[AdminController::class,'approve']);

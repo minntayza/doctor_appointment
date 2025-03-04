@@ -79,7 +79,7 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    <form action="/manage-users/delete/{{ $user->id }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                    <form action="/manage-users/{{$user->id}}/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200">

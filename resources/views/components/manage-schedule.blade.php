@@ -29,7 +29,7 @@
                             <label class="block text-sm font-medium text-gray-700 mb-2">Select Hospital</label>
                             <select name="hospital_id" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
                                 <option value="" disabled selected>Choose a hospital</option>
-                                @foreach($hospitals as $hospital)
+                                @foreach(auth()->user()->doctor->hospitals as $hospital)
                                     <option value="{{ $hospital->id }}">{{ $hospital->name }}</option>
                                 @endforeach
                             </select>
@@ -77,7 +77,7 @@
             </div>
 
             <!-- Existing Schedules -->
-            @foreach ($hospitals as $hospital)
+            @foreach (auth()->user()->doctor->hospitals as $hospital)
                 <div class="bg-white rounded-xl shadow-sm p-6 mb-6 border border-gray-100">
                     <div class="flex items-center mb-6">
                         <div class="bg-blue-100 p-2 rounded-lg">
@@ -88,6 +88,7 @@
                         <h3 class="text-lg font-semibold text-gray-900 ml-3">{{ $hospital->name }} - Schedules</h3>
                     </div>
 
+                    @if($schedules->isNotEmpty())
                     @forelse ($schedules as $schedule)
                         @if ($schedule->hospital_id == $hospital->id)
                             <div class="bg-gray-50 rounded-lg p-6 mb-4 border border-gray-200">
@@ -119,13 +120,13 @@
                                                 <div class="flex flex-col">
                                                     <label class="text-sm font-medium text-gray-700">Day</label>
                                                     <select name="day" id="updateDayInput-{{ $schedule->id }}" required class="border border-gray-300 rounded-lg p-2 w-32 text-sm focus:ring focus:ring-blue-200">
-                                                        <option value="Monday" {{ $schedule->schedule->day == 'Monday' ? 'selected' : '' }}>Monday</option>
-                                                        <option value="Tuesday" {{ $schedule->schedule->day == 'Tuesday' ? 'selected' : '' }}>Tuesday</option>
-                                                        <option value="Wednesday" {{ $schedule->schedule->day == 'Wednesday' ? 'selected' : '' }}>Wednesday</option>
-                                                        <option value="Thursday" {{ $schedule->schedule->day == 'Thursday' ? 'selected' : '' }}>Thursday</option>
-                                                        <option value="Friday" {{ $schedule->schedule->day == 'Friday' ? 'selected' : '' }}>Friday</option>
-                                                        <option value="Saturday" {{ $schedule->schedule->day == 'Saturday' ? 'selected' : '' }}>Saturday</option>
-                                                        <option value="Sunday" {{ $schedule->schedule->day == 'Sunday' ? 'selected' : '' }}>Sunday</option>
+                                                        <option value="Monday" {{ $schedule->day == 'Monday' ? 'selected' : '' }}>Monday</option>
+                                                        <option value="Tuesday" {{ $schedule->day == 'Tuesday' ? 'selected' : '' }}>Tuesday</option>
+                                                        <option value="Wednesday" {{ $schedule->day == 'Wednesday' ? 'selected' : '' }}>Wednesday</option>
+                                                        <option value="Thursday" {{ $schedule->day == 'Thursday' ? 'selected' : '' }}>Thursday</option>
+                                                        <option value="Friday" {{ $schedule->day == 'Friday' ? 'selected' : '' }}>Friday</option>
+                                                        <option value="Saturday" {{ $schedule->day == 'Saturday' ? 'selected' : '' }}>Saturday</option>
+                                                        <option value="Sunday" {{ $schedule->day == 'Sunday' ? 'selected' : '' }}>Sunday</option>
                                                     </select>
                                                 </div>
 
@@ -175,7 +176,7 @@
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
                                             <input type="date" name="date" id="updateDateInput-{{ $schedule->id }}"
-                                                value="{{ $schedule->schedule->date }}" required
+                                                value="{{ $schedule->date }}" required
                                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
                                         </div>
 
@@ -184,7 +185,7 @@
                                             <select name="day" id="updateDayInput-{{ $schedule->id }}" required
                                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
                                                 @foreach(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as $day)
-                                                    <option value="{{ $day }}" {{ $schedule->schedule->day == $day ? 'selected' : '' }}>
+                                                    <option value="{{ $day }}" {{ $schedule->day == $day ? 'selected' : '' }}>
                                                         {{ $day }}
                                                     </option>
                                                 @endforeach
@@ -193,13 +194,13 @@
 
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700 mb-2">Start Time</label>
-                                            <input type="time" name="time" value="{{ $schedule->schedule->time }}" required
+                                            <input type="time" name="time" value="{{ $schedule->time }}" required
                                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
                                         </div>
 
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700 mb-2">End Time</label>
-                                            <input type="time" name="end_time" value="{{ $schedule->schedule->end_time }}" required
+                                            <input type="time" name="end_time" value="{{ $schedule->end_time }}" required
                                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
                                         </div>
 
@@ -226,6 +227,7 @@
                             <p class="text-gray-500">No schedules available for this hospital.</p>
                         </div>
                     @endforelse
+                    @endif
                 </div>
             @endforeach
             <script>
