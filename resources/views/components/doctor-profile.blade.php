@@ -53,7 +53,7 @@
         </h2>
 
         <div class="grid gap-6">
-            @foreach ($doctor->hospitals as $hospital)
+            @foreach ($doctor->hospitals->unique('id') as $hospital)
                 <x-sitting-hospital-card :hospital="$hospital" :doctor="$doctor"/>
             @endforeach
         </div>

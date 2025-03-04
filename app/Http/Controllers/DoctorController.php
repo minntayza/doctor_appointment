@@ -24,8 +24,8 @@ class DoctorController extends Controller
     }
     public function show(Doctor $doctor){
         return view('doctor_profile', [
-            'doctor'=>$doctor,
-            'doctors' => $doctor->all()
+            'doctor' => $doctor,
+            'doctors' => Doctor::all() // Get all doctors correctly
         ]);
     }
 
